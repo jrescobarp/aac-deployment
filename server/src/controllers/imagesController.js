@@ -3,8 +3,8 @@ const Comment = require("../models/comment");
 const Recipe = require("../models/recipe");
 const asyncHandler = require("express-async-handler");
 // const { S3Client, DeleteObjectCommand } = require('@aws-sdk/client-s3');
-import { S3Client, DeleteObjectCommand, DeleteObjectsCommand } from "@aws-sdk/client-s3";
-import * as dotenv from 'dotenv'; 
+const { S3Client, DeleteObjectCommand, DeleteObjectsCommand } = require("@aws-sdk/client-s3");
+const dotenv = require("dotenv");
 dotenv.config();
 
 const s3 = new S3Client({
