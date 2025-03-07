@@ -1,7 +1,7 @@
 <div class="mainContainer" [ngClass]="dropdownDisplay ? 'noPaddingTop minHeight' : 'border-red-1px'" style="background-color: white;">
   <div class="notLoggedInDiv" *ngIf="!loggedIn" [ngClass]="dropdownDisplay ? 'noPaddingTop' : ''">
     <div *ngIf="!dropdownDisplay" class="userIcon">
-      <img class="chefIcon" src="../../../assets//redChef.png" alt="">
+      <img class="chefIcon" src="/assets/redChef.png" alt="">
     </div>
     <app-login class="login"
       [loginType]="'none'"
@@ -12,7 +12,7 @@
   <div *ngIf="loggedIn" class="loggedInDiv text-center">
     <!-- <div class="loggedInTitle">Chef {{userInfo.username + (userInfo.username.slice(-1) === "s" ? "'" : "'s")}} </div> -->
     <div *ngIf="!dropdownDisplay" class="userIcon mb-4">
-      <img class="chefIcon" src="../../../assets//redChef.png" alt="">
+      <img class="chefIcon" src="/assets/redChef.png" alt="">
     </div>
     <div class="loggedInTitle" style="color:rgba(206,60,81,1)">Chef {{userInfo.username}}</div>
     <div class="userMenuLoggedInBtn" [ngClass]="dropdownDisplay ? 'mt-2' : 'mt-4'"><button class="btn btn-green" (click)="openModal(activity)">actividad</button></div>
