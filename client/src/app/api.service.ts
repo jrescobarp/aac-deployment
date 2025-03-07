@@ -9,7 +9,7 @@ import { HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ApiService {
-  private url = 'http://localhost:4200/api';
+  private url = 'https://jdwx5ydxi2.execute-api.us-west-1.amazonaws.com/AAC-DEV';
   private recipes$: any = [];
   private user$: any;
   private comments$: Subject<Comment[]> = new Subject();
