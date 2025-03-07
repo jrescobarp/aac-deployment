@@ -1,0 +1,26 @@
+.upvoteBtn{
+  background-color: transparent;
+  border: none;
+  margin-left: .75em;
+}
+
+.upvoteIcon{
+  max-height: 1.75em;
+}
+
+.upvoteBtn:hover{
+  background-color: rgb(93, 129, 2, .25);
+  border-radius: 50px;
+}
+
+.upvoteBtn:hover .upvoteIcon{
+  max-height: 2.5em;
+}
+
+.upvoteIconReplies{
+  max-height: 1.35em;
+}
+
+.upvoteBtn:hover .upvoteIconReplies{
+  max-height: 2em;
+}

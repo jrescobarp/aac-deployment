@@ -1,0 +1,186 @@
+.lgTitleTxt{
+  font-size: 1.2em;
+}
+
+.smTitleTxt{
+  font-size: .65;
+}
+
+.displayInline{
+  display: inline-flex;
+}
+
+.comentariosTxtArea{
+  width: 100%;
+  height: 1.7em;
+  border: none;
+  border-bottom: 2px solid #ccc;
+}
+
+.replyTextarea{
+  width: 98%;
+}
+
+.cancelBtn{
+  margin-right: 1em;
+}
+
+.tr{
+  text-align: right;
+}
+
+.chefUserIcon{
+  max-width: 1.5em;
+  max-height: 1.5em;
+}
+
+.commentDivWhite{
+  background-color: white;
+}
+
+.commentDivGray{
+  background-color: rgba(236, 236, 236, .5);
+  border-radius: 5px;
+}
+
+.commentTxt{
+  padding-left: 1.5em;
+}
+
+.capitalize{
+  text-transform: capitalize;
+}
+
+.upvoteBtnDiv{
+  margin-left: .5em;
+}
+
+.filterBtn{
+  margin-left: .75em;
+  background-color: transparent;
+  border: none;
+  min-height: 1.2em;
+}
+
+.ml75{
+  margin-left: .75em;
+}
+
+.commentReplyChevron{
+  color: #ce3c51;
+}
+
+.filterBtn:hover{
+  background-color: rgb(93, 129, 2, .5);
+  border-radius: 15px;
+  color:white;
+}
+
+.filterBtn:hover .commentReplyChevron{
+  color: white;
+}
+
+.upvoteBtn{
+  background-color: transparent;
+  border: none;
+  margin-left: .75em;
+}
+
+.upvoteIcon{
+  max-height: 1.75em;
+}
+
+.upvoteBtn:hover{
+  background-color: rgb(93, 129, 2, .25);
+  border-radius: 50px;
+}
+
+.upvoteBtn:hover .upvoteIcon{
+  max-height: 2.5em;
+}
+
+.upvoteIconReplies{
+  max-height: 1.35em;
+}
+
+.upvoteBtn:hover .upvoteIconReplies{
+  max-height: 2em;
+}
+
+.commentDate{
+  margin-left: .75em;
+  color: gray;
+}
+
+.addReplyDiv{
+  padding-left:1em;
+  border-top: .1px solid gray;
+  padding-top: .25em;
+}
+
+.fs1{
+  font-size: 1em;
+}
+
+.fs13{
+  font-size: 1.3em;
+}
+
+.fs11{
+  font-size: 1.1em;
+}
+
+.fs75{
+  font-size: .75em;
+}
+
+.fs65{
+  font-size: .65em;
+}
+
+.fs55{
+  font-size: .55em;
+}
+
+.fs45{
+  font-size: .45em;
+}
+
+.replyCommentDiv{
+  border-top: .1px solid gray;
+}
+
+.replyComment{
+  background-color: white;
+  margin-left: .75em;
+}
+
+.replyTxtDiv{
+  border-left: .1px solid gray;
+  border-right: .1px solid gray;
+}
+
+.replyActionsDiv{
+  text-transform: capitalize;
+  border-left: .1px solid gray;
+  border-bottom: .1px solid gray;
+  border-right: .1px solid gray;
+}
+
+.grayTxt{
+  color: gray;
+}
+
+.mr2{
+  margin-right: 2em;
+}
+
+.mr1{
+  margin-right: 1em;
+}
+
+@media (max-width: 1000px) {
+  .replyTextarea{
+    width: 92%;
+  }
+}

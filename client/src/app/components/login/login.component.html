@@ -1,0 +1,38 @@
+<div class="container">
+  <div *ngIf="loginType === 'none' && !loadingUserInfo" class="noneDiv px-3 my-4">
+    <div class="mb-3"><button (click)="loginType = 'login'" class="btn btn-green">login</button></div>
+    <div class="mb-3"><button (click)="loginType = 'createAcct'" class="btn btn-green">create account</button></div>
+  </div>
+
+  <div *ngIf="loadingUserInfo" class="row d-flex justify-content-center mt-5">
+    <div class="spinner-border col-12" role="status" style="color: rgba(80,131,17,.75);">
+      <span class="sr-only"></span>
+    </div>
+    <div class="col-12 mt-3" style="color: rgba(80,131,17,1);">cargando usuario</div>
+  </div>
+
+
+  <div *ngIf="loginType === 'login' && !loadingUserInfo" class="loginDiv px-3 my-4">
+    <div class="row text-center">
+      <div clas="col-12"><input type="text" [(ngModel)]="user.username" id="username-login" placeholder="username"></div>
+      <div clas="col-12"><input type="password" [(ngModel)]="user.password" id="password-login" placeholder="password"></div>
+      <div clas="col-6"><button class="btn btn-green" (click)="login()">login</button></div>
+      <div clas="col-6"><button (click)="loginType = 'none'" class="btn btn-red">cancel</button></div>
+      <!-- <div clas="col-12"><a class="createAcctBtn" routerLink="#">forgot password?</a></div> -->
+      <div clas="col-12"><button class="createAcctBtn bg-creme" (click)="loginType = 'createAcct'">create account</button></div>
+    </div>
+  </div>
+
+
+  <div *ngIf="loginType === 'createAcct' && !loadingUserInfo" class="createAcctDiv px-3 my-4">
+    <div>
+        <div clas="col-12"><input type="text" [(ngModel)]="user.first_name" id="first_name" placeholder="first name"></div>
+        <div clas="col-12"><input type="text" [(ngModel)]="user.last_name" id="last_name" placeholder="last name"></div>
+        <div clas="col-12"><input type="text" [(ngModel)]="user.username" id="username" placeholder="username"></div>
+        <div clas="col-12"><input type="text" [(ngModel)]="user.email" id="email" placeholder="email"></div>
+        <div clas="col-12"><input type="password" [(ngModel)]="user.password" id="password" placeholder="password"></div>
+        <div clas="col-6"><button class="btn btn-green" (click)="registerUser()">submit</button></div>
+        <div clas="col-6"><button (click)="loginType = 'none'" class="btn btn-red">cancel</button></div>
+    </div>
+  </div>
+</div>

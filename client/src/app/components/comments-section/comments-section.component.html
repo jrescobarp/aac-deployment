@@ -1,0 +1,89 @@
+<div class="comentariosTitle mb-2">
+  <div class="displayInline" [ngClass]="mainCommentSection ? 'lgTitleTxt' : 'smTitleTxt'" style="color:rgba(206,60,81,1);">{{comments_arr.length}} Comentario{{comments_arr.length === 1 ?  '' : 's'}}</div>
+  <div *ngIf="comments_arr.length" ngbDropdown class="d-inline-block" matTooltip="ordernar comentarios" [matTooltipPosition]="'above'">
+    <button type="button" class="filterBtn" id="dropdownBasic1" ngbDropdownToggle>
+      <i class="fa-solid fa-filter fa-xs"></i>
+    </button>
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+      <button ngbDropdownItem (click)="filtrarComentariosUpvotes('upvotes', 'desc')">mas likes</button>
+      <button ngbDropdownItem (click)="filtrarComentariosUpvotes('upvotes', 'asc')">menos likes</button>
+      <button ngbDropdownItem (click)="filtrarComentariosDate('date_created','desc')">nuevos comentarios primero</button>
+      <button ngbDropdownItem (click)="filtrarComentariosDate('date_created','asc')">viejos comentarios primero</button>
+    </div>
+  </div>
+</div>
+
+<div class="mb-1">
+  <div>
+    <textarea name="comment_txt" class="comentariosTxtArea"
+    [(ngModel)]="comment.text" (click)="commentBtnToggle(true)" placeholder="recomendación o comentario"></textarea>
+  </div>
+  <div *ngIf="showBtns" class="mb-4 tr">
+    <button class="btn btn-red cancelBtn" [ngClass]="parentType === 'image' ? 'btn-sm' : ''" (click)="resetComment();commentBtnToggle(false);" >Cancel</button>
+    <button class="btn btn-green"[ngClass]="parentType === 'image' ? 'btn-sm' : ''" (click)="submitComment(parentObject._id, parentObject.comments, parentType)">Submit</button>
+  </div>
+</div>
+
+<div *ngIf="!comments_arr.length" class="text-center">
+  <i class="fa-solid fa-comment-slash"></i><br>
+  No hay comentarios
+</div>
+
+<ng-container *ngIf="comments_arr.length">
+  <div *ngFor="let comment of parentObject.comments; index as i" class="row mx-1 mb-3 mb-1 pt-3 commentDiv" [ngClass]="parentType === 'image' ? 'commentDivGray' : 'commentDivWhite'">
+    <div class="col-12 mt-1 mb-2 commentTxt" [ngClass]="parentType === 'image' ? 'fs1' : 'fs13'">{{comment.text}}</div>
+    <div class="col-6 pb-2 upvoteBtnDiv">
+      <app-upvote-btn
+        [mainComponent]="comment"
+        [userId]="(userInfo && userInfo._id) ? userInfo._id! : ''"
+        [componentType] = "'comment'"
+      ></app-upvote-btn>
+    </div>
+
+    <div class="col pb-2 tr">
+      <strong class="capitalize" [ngClass]="parentType === 'image' ? 'fs65' : ''">
+         - chef {{comment.username}}
+      </strong>
+      <div class="commentDate" [ngClass]="parentType === 'image' ? 'fs55' : 'fs75'">( {{comment.date_created | date}} )</div>
+    </div>
+
+    <div class="col-12 mb-1 addReplyDiv">
+      <div *ngIf="comment.replies.length" class="displayInline">
+        <button id="showRepliesBtnChevronDown-{{comment._id}}" class="filterBtn" (click)="viewReplies(comment._id, comment, i)">{{comment.replies.length}} respuesta{{comment.replies.length > 1 ? 's' : ''}} <i class="fa-solid fa-chevron-down fa-xs commentReplyChevron" id="{{comment._id + '-' + i}}-comment-replies-chevron"></i></button>
+      </div>
+      <div class="ml75 displayInline" *ngIf="!comment.replies.length">0 respuesta{{comment.replies.length != 1 ? 's' : ''}}</div>
+      <div class="displayInline"><button class="filterBtn btn-green fs1" (click)="showReplyInput(comment._id, 'block')">responder</button></div>
+    </div>
+
+    <!-- Comment Replies -->
+    <div id="{{comment._id + '-' + i}}-comment-replies" class="replyCommentDiv" style="display: none;">
+      <div *ngFor="let reply of comment.replies"  class="row mx-3 replyComment">
+        <div class="col-12 pt-2 replyTxtDiv" [ngClass]="parentType === 'image' ? 'fs65' : 'fs11'">{{reply.text}}</div>
+        <div class="col-12 pb-2 replyActionsDiv">
+          <div class="row">
+            <div class="col-6">
+              <app-upvote-btn
+                [mainComponent]="reply"
+                [userId]="(userInfo && userInfo._id) ? userInfo._id! : ''"
+                [componentType] = "'comment'"
+              ></app-upvote-btn>
+            </div>
+            <div class="col-6 tr">
+              <div class="displayInline ml75" [ngClass]="parentType === 'image' ? 'fs55' : ''"><strong> - chef {{reply.username}}</strong></div>
+              <div class="ml75 fs75 grayTxt" [ngClass]="parentType === 'image' ? 'fs45' : ''">( {{comment.date_created | date}} )</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="{{comment._id}}-comment" class="col-12 mx-3" style="display: none;">
+      <textarea name="replyTxt" class="comentariosTxtArea replyTextarea" [(ngModel)]="replyTxt" placeholder="responder a {{comment.username}}" id="reply_comment_txt"></textarea>
+      <div class="tr mr2">
+        <button class="btn btn-red mr1" [ngClass]="parentType === 'image' ? 'btn-sm' : ''" (click)="replyTxt = '';showReplyInput(comment._id, 'none')">Cancel</button>
+        <button class="btn btn-green" [ngClass]="parentType === 'image' ? 'btn-sm' : ''" (click)="submitComment(comment._id, comment.replies, 'comment', true, i)">Submit</button>
+      </div>
+    </div>
+  </div>
+
+</ng-container>

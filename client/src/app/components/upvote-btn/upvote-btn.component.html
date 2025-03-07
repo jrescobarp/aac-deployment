@@ -1,0 +1,21 @@
+<!-- UpvoteBTn -->
+<button *ngIf="mainComponent.upvotes && userId && !mainComponent.upvotes.includes(userId)" class="upvoteBtn" matTooltip="like" [matTooltipPosition]="'above'" (click)="upvote()">
+  <img class="upvoteIcon" src="../../../assets/avocadoNormal.png" alt="">
+  <div style="display: inline-flex;color: rgba(181,216,0,255);margin-left: .75em;font-size: 1em;">
+    ( <span style="color: rgba(153,90,1,255);">{{mainComponent.upvotes.length ? mainComponent.upvotes.length : '0'}}</span> )
+  </div>
+</button>
+
+<button *ngIf="mainComponent.upvotes && userId && mainComponent.upvotes.includes(userId)" class="upvoteBtn" matTooltip="quitar like" [matTooltipPosition]="'above'" (click)="removeUpvote()">
+  <img class="upvoteIcon" src="../../../assets/happyAvocado.png" alt="">
+  <div style="display: inline-flex;color: rgba(181,216,0,255);margin-left: .75em;font-size: 1em;">
+    ( <span style="color: rgba(153,90,1,255);">{{mainComponent.upvotes.length ? mainComponent.upvotes.length : '0'}}</span> )
+  </div>
+</button>
+
+<button *ngIf="!userId" class="upvoteBtn" matTooltip="inicia sesion para darle like" [matTooltipPosition]="'above'" (click)="loginToUpvote()">
+  <img class="upvoteIcon" src="../../../assets/avocadoNormal.png" alt="">
+  <div style="display: inline-flex;color: rgba(181,216,0,255);margin-left: .75em;font-size: 1em;">
+    ( <span style="color: rgba(153,90,1,255);">{{mainComponent.upvotes.length ? mainComponent.upvotes.length : '0'}}</span> )
+  </div>
+</button>

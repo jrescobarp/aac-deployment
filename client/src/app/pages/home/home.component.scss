@@ -1,0 +1,31 @@
+.hide{
+  display: none;
+}
+.mainContainer {
+  text-align: center;
+  left: 1em;
+  right: 1em;
+}
+
+.mainContainer strong {
+  font-size: 20px;
+  line-height: 26px;
+}
+
+.mainContainer p {
+  font-size: 16px;
+  line-height: 22px;
+  color: #8c8c8c;
+  margin: 0;
+}
+
+.mainContainer a {
+  text-decoration: none;
+}
+
+@media (max-width: 950px) {
+  .mainContainer {
+    left: 0em;
+    right: 0em;
+  }
+}

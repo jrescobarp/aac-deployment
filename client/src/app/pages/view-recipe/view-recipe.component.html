@@ -1,0 +1,121 @@
+<app-navbar
+[showProfileDropdown]="true"
+(logInChange)="recheckFavorites($event)"
+></app-navbar>
+
+<div class="container mainContainer">
+  <div class="row">
+    <div class="col-12 my-3 titleDiv">
+      <div class="row">
+        <div [ngClass]="isMobile ? 'recipeNameMobile col-9' : 'recipeNameFull col-9'" style="color:rgba(206,60,81,1);">{{recipe.value.name}}</div>
+        <div class="col" style="padding-top: .4em;text-align: right;padding-right: 0em;">
+          <button *ngIf="userInfo && !isFavorite" class="btn btn-sm btn-red btn-red-title" style="margin-top: -.25em;" matTooltip="agregar a favoritos" [matTooltipPosition]="'above'" (click)="addRecipeToFavorites()"><i class="fa-solid fa-plus"></i></button>
+          <button *ngIf="userInfo && isFavorite" class="btn btn-sm btn-red btn-red-title" style="margin-top: -.25em;" matTooltip="borrar de favoritos" [matTooltipPosition]="'above'" (click)="removeRecipeFromFavorites()"><i class="fa-solid fa-minus"></i></button>
+          <!-- <button *ngIf="!userInfo" class="btn btn-sm btn-red btn-red-title" style="margin-top: -.25em;" matTooltip="inicia sesion para agregar a lista de recetas favoritas" [matTooltipPosition]="'above'" >
+            <i class="fa-solid fa-plus"></i>
+          </button> -->
+          <button class="btn btn-sm btn-green" matTooltip="copiar todo texto" [matTooltipPosition]="'above'" (click)="copyToClipboard('all')"  style="margin-top: -.25em;margin-left: 1em;">
+            <i class="fa-regular fa-clipboard"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="mainImgCarousel bg-white col-12 mb-3 px-0 border-red-2px">
+      <app-image-display
+          [images]="recipe.value.images"
+          [isMobile]="isMobile"
+          [recipe_id]="recipe.value._id!"
+          [recipe_name]="recipe.value.name"
+          [isHomePage]="false"
+      ></app-image-display>
+    </div>
+
+    <div id="descriptionDiv" class="descriptionDiv bg-white col-12 mb-3 border-red-1px" style="display: none;">
+      <div class="mt-2" style="font-size: 1em;color:rgba(206,60,81,1);"><strong>Descripcion:</strong></div>
+      <div id="descriptionSpanDiv" class="my-2 mx-2" style="font-size: .9em;"></div>
+    </div>
+
+    <div class="ingrDiv bg-white border-red-1px" [ngClass]="isMobile ? 'col-12' : 'col-4'">
+      <div class="row">
+        <div class="col-8 mt-2" style="font-size: 1em;color:rgba(206,60,81,1);"><strong>Ingredientes:</strong></div>
+        <div class="col-4" style="text-align: right;">
+          <button class="btn btn-sm btn-green" matTooltip="copiar texto" [matTooltipPosition]="'above'" (click)="copyToClipboard('ingredients')"><i class="fa-regular fa-clipboard"></i></button>
+        </div>
+      </div>
+      <ul id="ingredientList">
+        <!-- <li *ngFor="let ingredient of recipe.value.ingredients ; let i = index" style="font-size: .8em;">
+          {{ingredient}}
+        </li> -->
+      </ul>
+    </div>
+
+    <div class="stepsDiv bg-white border-red-1px" [ngClass]="isMobile ? 'col-12 mt-3' : 'col'" style="margin-left: 2em;">
+      <div class="row mt-2">
+        <div class="col-8" style="font-size: 1em;color:rgba(206,60,81,1);"><strong>Instrucciones:</strong></div>
+        <div class="col-4" style="text-align: right;">
+          <button class="btn btn-sm mt-0 btn-green" matTooltip="copiar texto" [matTooltipPosition]="'above'" (click)="copyToClipboard('steps')"><i class="fa-regular fa-clipboard"></i></button>
+        </div>
+      </div>
+      <ol id="stepsList">
+        <!-- <li *ngFor="let step of recipe.value.steps ; let i = index" style="font-size: .8em;">
+          {{step}}
+        </li> -->
+      </ol>
+    </div>
+
+    <div class="col-12 my-3 px-0">
+      <app-comments-section
+        [comments_arr]="recipe.value.comments"
+        [parentObject]="recipe.value"
+        [parentType] = "'recipe'"
+        [mainCommentSection]="true"
+      ></app-comments-section>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>
+
+
+
+<!-- Connected Recipe Modal -->
+<!-- <ng-template #content let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title" style="text-transform: capitalize;">{{connectedRecipe[crIndex].name.toLowerCase()}}</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="closeModal(modal)"></button>
+	</div>
+	<div class="modal-body row">
+    <div class="ingrDiv bg-white" [ngClass]="isMobile ? 'col-12' : 'col-5'" style="border: none">
+      <div class="row">
+        <div class="col-8 mt-2" style="font-size: 1em;">Ingredientes:</div>
+        <div class="col-4" style="text-align: right;">
+          <button class="btn btn-sm btn-green" matTooltip="copiar texto" [matTooltipPosition]="'above'" (click)="copyToClipboard('ingredients')"><i class="fa-regular fa-clipboard"></i></button>
+        </div>
+      </div>
+      <ul>
+        <li *ngFor="let ingredient of connectedRecipe[crIndex].ingredients ; let i = index" style="font-size: .8em;">
+          <button *ngIf="i === 0 && connectedRecipe[crIndex].connected_recipes.length" (click)="open(0)">{{ingredient}}</button>
+          <span *ngIf="i != 0 || !connectedRecipe[crIndex].connected_recipes.length">{{ingredient}}</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="stepsDiv bg-white" [ngClass]="isMobile ? 'col-12 mt-3' : 'col-7'" style="border-right: none;border-top: none;border-bottom: none;border-radius: 0px;">
+      <div class="row mt-2">
+        <div class="col-8" style="font-size: 1em;">Instrucciones:</div>
+        <div class="col-4" style="text-align: right;">
+          <button class="btn btn-sm mt-0 btn-green" matTooltip="copiar texto" [matTooltipPosition]="'above'" (click)="copyToClipboard('steps')"><i class="fa-regular fa-clipboard"></i></button>
+        </div>
+      </div>
+      <ol>
+        <li *ngFor="let step of connectedRecipe[crIndex].steps ; let i = index" style="font-size: .8em;">
+          {{step}}
+        </li>
+      </ol>
+    </div>
+	</div>
+	<div class="modal-footer">
+    <a class="btn btn-red" routerLink="/recipe/{{connectedRecipe[crIndex]._id}}" target="_blank" matTooltip="abrir receta en otro tab" [matTooltipPosition]="'above'">ver receta <i class="fa-solid fa-arrow-right-long"></i></a>
+	</div>
+</ng-template> -->

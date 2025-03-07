@@ -1,0 +1,87 @@
+.recipeImgDiv{
+  border: .5px solid gray;
+}
+
+.homePgNoImgDivStyling{
+  height: 17em;
+}
+
+.homePgNoImgIconStyling{
+  padding-top:4em;
+}
+
+.fa-kitchen-set{
+  color: rgba(206,60,81,1);
+}
+
+.showImgsDiv{
+  width: 100%;
+  max-height: 35em;
+  overflow-y: auto;
+}
+
+.carousel{
+  height: 35em;
+}
+
+.carousel img{
+  height: 35em;
+  width: auto;
+  background-color: rgba(207,200,181, .1);
+}
+
+.carousel-control-next,
+.carousel-control-prev /*, .carousel-indicators */ {
+    filter: invert(90%);
+    right: 0%;
+}
+
+.descripcionDiv{
+  height: 7.5em;
+  overflow-y: scroll;
+  // border-top: 1px solid gray;
+  // border-bottom: 1px solid gray;
+}
+
+.descripcionDivMobile{
+  height: 5em;
+  overflow-y: scroll;
+  border-top: 1px solid gray;
+}
+
+.imgActionsDiv{
+  border-left: 1px solid gray;
+}
+
+.commentSection{
+  height: 15em;
+  overflow-y: scroll;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
+  padding-top: 2em;
+}
+
+.prevImgBtn{
+  border-radius: 5px 0px 0px 5px;
+}
+
+.nextImgBtn{
+  border-radius: 0px 5px 5px 0px;
+}
+
+.upload-photo-btn:hover{
+  text-decoration: underline;
+  cursor: pointer;
+  color: rgba(206,60,81,.5);
+}
+
+.usernameTxt{
+  text-align: right;
+  font-size: 1em;
+}
+
+::ng-deep .cdk-overlay-container {
+  z-index: 10000 !important;
+}

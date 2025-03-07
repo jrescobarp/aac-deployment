@@ -1,0 +1,88 @@
+.mainContainer{
+  margin-left: 1em;
+  max-height: 20em;
+  overflow: auto;
+}
+
+.accordionItem{
+  width: 100%;
+  border: 1px solid #CBCDCB;
+}
+
+.searchInputBtn{
+  padding-top: .31em;
+}
+
+.categoryBtnTxt{
+  text-transform: capitalize;
+}
+
+.categoryBtnOptionTxt{
+  // background-color: white;
+  border-style: none;
+  text-decoration: none;
+  color: black;
+  text-transform: capitalize;
+}
+
+.categoryBtnOptionTxt:hover{
+  text-decoration: underline;
+  text-decoration-color: #5d8102;
+  border-right:none;
+}
+
+.listHeader{
+  margin-top: .5em;
+  text-align: left;
+  padding-left: 2em;
+}
+
+input[type=text] {
+  width: 55%;
+  // border-top-left-radius: 5px;
+  // border-bottom-left-radius: 5px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  min-height: 2.25em;
+  margin-bottom: .45em;
+}
+
+h2{
+  margin-top: 0px;
+}
+
+.btn{
+  width: 8%;
+  margin-top: .35em;
+  margin-right: .35em;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  // border-top-right-radius: 5px;
+  // border-bottom-right-radius: 5px;
+}
+
+.floatRight{
+  text-align: right;
+  float: right;
+}
+
+a:hover{
+  cursor: pointer;
+}
+
+@media (max-width: 820px) {
+
+  .mainContainer{
+    max-height: 22em;
+    margin: 1em;
+  }
+
+  .btn{
+    width: 13%;
+    margin-right: 0em;
+}
+
+  input[type=text] {
+    width: 83%;
+  }
+}

@@ -1,0 +1,132 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+* {
+  font-family: 'Merriweather';
+}
+
+.btn{
+  margin-top: .5em;
+  margin-bottom: .5em;
+}
+
+.btn-green{
+  border: 1px solid rgba(80,131,17,1);
+  background-color: white;
+  // color: black;
+  color: rgba(80,131,17,1);
+}
+
+.btn-green:hover{
+  background-color: rgba(80,131,17,1);
+  color: white;
+}
+
+.btn-red{
+  border: 1px solid rgba(206,60,81,1);
+  background-color: white;
+  color: rgba(206,60,81,1);
+  // color: black;
+}
+
+.btn-red:hover{
+  background-color: rgba(206,60,81,1);
+  color: white;
+}
+
+.btn-red-filled{
+  border: 1px solid rgba(206,60,81,1);
+  background-color: rgba(206,60,81,1);
+  color: white;
+}
+
+.btn-red-filled:hover{
+  background-color: white;
+  color: rgba(206,60,81,1);
+}
+
+.diasbled-btn-red{
+  border: 1px solid rgba(206,60,81,.25);
+  background-color: gray;
+  color: rgba(206,60,81,.25);
+}
+
+.border-gold{
+  border:1px solid #e8cb6d;
+  border-radius: 10px;
+}
+
+.border-gray{
+  border: 1px solid #CBCDCB;
+  border-radius: 10px;
+}
+
+.border-red-1px{
+  border: 1px solid rgba(206,60,81,1);
+  border-radius: 10px;
+}
+
+.border-red-2px{
+  border: 2px solid rgba(206,60,81,1);
+  border-radius: 10px;
+}
+
+.mat-mdc-snack-bar-container {
+  &.aac-red {
+    --mdc-snackbar-container-color: rgba(206,60,81,1);
+    --mat-mdc-snack-bar-button-color: #fff;
+    --mdc-snackbar-supporting-text-color: #fff;
+    text-align: center;
+  }
+}
+
+.mat-mdc-snack-bar-container {
+  &.aac-green {
+    --mdc-snackbar-container-color: rgba(80,131,17,1);
+    --mat-mdc-snack-bar-button-color: white;
+    --mdc-snackbar-supporting-text-color: white;
+    text-align: center;
+  }
+}
+
+body{
+  min-height: 40em;
+  background-color: rgba(207,200,181, .1);
+}
+
+.blackFont{
+  color: black;
+}
+
+.redFont{
+  color: rgba(206,60,81,1);
+}
+
+.bg-white{
+  background-color: white;
+}
+
+.halfWidth{
+  width: 50%;
+}
+
+.tl{
+  text-align: left;
+}
+
+.accordion {
+  --bs-accordion-btn-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ce3c51'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+  --bs-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+.accordion-button:not(.collapsed) {
+  color: white;
+  background-color: rgba(80,131,17,.5);
+}
+
+.footerDiv{
+  color: red;
+}

@@ -1,0 +1,83 @@
+.mainContainer{
+  min-height: 45em;
+}
+
+.titleDiv{
+  border-bottom:1px solid gray;
+}
+
+.mainImgCarousel{
+  border-radius: 5px;
+}
+
+.descriptionDiv{
+  border-radius: 5px;
+  max-height: 10em;
+  overflow-y: auto;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+.ingrDiv{
+  border-radius: 5px;
+  overflow-y: auto;
+  font-size: 1.3em;
+  height: 50vh;
+}
+
+.stepsDiv{
+  border-radius: 5px;
+  overflow-y: auto;
+  font-size: 1.2em;
+  height: 50vh;
+}
+
+.noImgIcon{
+  font-size: 4em;
+  color: rgba(206,60,81,1);
+  padding-bottom: .5em;
+}
+
+.recipeNameFull{
+  font-size: 1.88em;
+  margin-right: 1em;
+  padding-left: 0em;
+}
+
+.recipeNameMobile{
+  display: inline;
+  font-size: 1.34em;
+}
+
+.connectedRecipeBtn{
+  padding-left: 0px;
+  background-color: transparent;
+  border: none;
+  min-height: 1.2em;
+}
+
+.connectedRecipeBtn:hover{
+  background-color: rgb(93, 129, 2, .5);
+  border-radius: 15px;
+  color:white;
+}
+
+.connectedRecipeBtn:hover .commentReplyChevron{
+  color: white;
+}
+
+li{
+  font-size: .8em;
+}
+
+@media (max-width: 1000px) {
+  .ingrDiv{
+    max-height: 15em;
+  }
+
+  .btn-red-title{
+    margin-top: -0.3em;
+    width: 2em;
+    height: 2.2em;
+  }
+}

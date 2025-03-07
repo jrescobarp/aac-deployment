@@ -1,0 +1,71 @@
+<div class="mainContainer border-red-1px">
+  <div class="row bg-white">
+    <div class="listHeader" [ngClass]="isMobile ? 'col-12' : 'col-6'" style="color: rgba(206,60,81,1);">
+      <h2>Tutoriales y Recetas</h2>
+    </div>
+    <div class="pt-1" [ngClass]="isMobile ? 'col-12 ' : 'col-6 floatRight'">
+      <input class="searchInput border-red-1px" (keyup)="onKeyUpSearch($event)" (click)="showHideSearchResults('');first.collapsed = false" type="text" placeholder="Search.." name="search">
+      <button class="btn btn-red searchInputBtn" (click)="showHideSearchResults('none');first.collapsed = true;" type="submit" [ngClass]="isMobile ? '' : 'widerBtn'"><i class="fa-solid fa-x fa-sm"></i></button>
+    </div>
+    <div ngbAccordion #accordion="ngbAccordion">
+      <!-- Search Results -->
+      <div class="accordionItem" #first="ngbAccordionItem" ngbAccordionItem="first" style="display: none;">
+        <h2 ngbAccordionHeader>
+          <button class="categoryBtnTxt" ngbAccordionButton>Search Results</button>
+        </h2>
+        <div ngbAccordionCollapse>
+          <div ngbAccordionBody>
+            <ng-template>
+              <div *ngIf="searchResultRecipes.length" class="row">
+                <div class="categoryBtnOptionDiv text-center my-3" *ngFor="let recipe of searchResultRecipes" [ngClass]="isMobile ? 'col-12' : 'col-4'">
+                  <a class="p-3 categoryBtnOptionTxt" (click)="recipeRedirect(recipe)">{{ recipe.name.toLowerCase() }}</a>
+                </div>
+              </div>
+              <div *ngIf="!searchResultRecipes.length">
+                <div class="text-center">
+                  No hay resultados...
+                </div>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+
+      <!-- All Recipes -->
+      <div class="accordionItem" *ngFor="let category of chapters" ngbAccordionItem>
+        <h2 ngbAccordionHeader>
+          <button class="categoryBtnTxt" ngbAccordionButton>{{category.name}}</button>
+        </h2>
+        <div ngbAccordionCollapse>
+          <div ngbAccordionBody>
+            <ng-template>
+              <!-- Content for the first item <div *ngIf="isMobile">sdnkjsnjkdvnds</div> -->
+              <div class="row">
+                <div class="categoryBtnOptionDiv text-center my-3" *ngFor="let option of category.recipes" [ngClass]="isMobile ? 'col-12' : 'col-4'">
+                  <a class="p-3 categoryBtnOptionTxt" (click)="recipeRedirect(option)">{{ option.name.toLowerCase() }}</a>
+                </div>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+
+      <!-- All Categories -->
+      <!-- <div class="accordionItem" *ngFor="let category of categoryList" ngbAccordionItem>
+        <h2 ngbAccordionHeader>
+          <button class="categoryBtnTxt" ngbAccordionButton>{{category.name}}</button>
+        </h2>
+        <div ngbAccordionCollapse>
+          <div ngbAccordionBody>
+            <ng-template>
+              <div class="row">
+                <div class="categoryBtnOptionDiv text-center my-3" *ngFor="let option of category.recipes" [ngClass]="isMobile ? 'col-12' : 'col-4'">
+                  <a class="p-3 categoryBtnOptionTxt" (click)="recipeRedirect(option)">{{ option.name.toLowerCase() }}</a>
+                </div>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </div>

@@ -1,0 +1,171 @@
+<div class="recipeImgDiv">
+  <!-- Img Display in recipe display page -->
+  <div *ngIf="images.length" class="showImgsDiv container">
+    <!-- img carousel -->
+    <div *ngFor="let image of images;index as i">
+      <div class="row" id="{{'div-' + image._id}}">
+        <div [ngClass]="isMobile ? 'col-12' : 'col-9'">
+          <div id="carouselExampleControls-{{image._id}}" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div *ngFor="let img of image.imgDataArr;index as i" class="carousel-item" [ngClass]="i === 0 ? 'active' : ''">
+                <div class="d-flex justify-content-center carouselImgDiv">
+                  <img class="d-block" src="{{img.url}}">
+                </div>
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" [attr.data-bs-target]="'#carouselExampleControls-' + image._id" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" [attr.data-bs-target]="'#carouselExampleControls-' + image._id" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="imgActionsDiv" [ngClass]="isMobile ? 'col-12' : 'col-3'">
+          <div class="row mt-2">
+            <div class="col-12 py-2 mb-4" [ngClass]="isMobile ? 'col-12 descripcionDivMobile' : 'col-3 descripcionDiv'">
+              {{image.description}}
+            </div>
+            <div class="col-6">
+              <app-upvote-btn
+                [mainComponent]="image"
+                [userId]="(userInfo && userInfo._id) ? userInfo._id! : ''"
+                [componentType] = "'image'"
+              ></app-upvote-btn>
+            </div>
+            <div class="col-6 usernameTxt">
+              - chef {{image.username}}
+            </div>
+            <div class="col-12 commentSection">
+              <app-comments-section
+                [comments_arr]="image.comments"
+                [isMobile]="isMobile"
+                [parentObject]="image"
+                [parentType]="'image'"
+                [mainCommentSection]="false"
+              ></app-comments-section>
+            </div>
+            <div>
+              <button class="halfWidth prevImgBtn btn my-0" (click)="scroll('div-' + images[i-1]._id)" matTooltip="ultimas fotos" [matTooltipPosition]="'above'"
+              [disabled]="i === 0" [ngClass]="i === 0 ? 'disabled-btn-green':'btn-green'"><i class="fa-solid fa-angles-up"></i></button>
+
+              <button class="halfWidth nextImgBtn btn my-0" (click)="scroll('div-' + images[i+1]._id)" matTooltip="proximas fotos" [matTooltipPosition]="'above'"
+              [disabled]="(i+1) >= images.length" [ngClass]="(i+1) >= images.length ? 'disabled-btn-green':'btn-green'"><i class="fa-solid fa-angles-down"></i></button>
+            </div>
+            <div>
+              <button *ngIf="userInfo && image.user_id != userInfo._id" class="btn btn-red" (click)="open(content, 'create')" style="width: 100%;">compartir tus fotos</button>
+              <button *ngIf="userInfo && image.user_id === userInfo._id" class="btn btn-red" (click)="open(content, 'edit', i)"  style="width: 100%;">editar tu post <i class="fa-regular fa-pen-to-square"></i></button>
+            </div>
+          </div>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Img Display in home page -->
+  <!-- <div *ngIf="images.length && isHomePage" class="container">
+    <div class="homePgImgDiv">
+      <img class="homePgImg" src="{{homePgImgUrl}}" alt="">
+    </div>
+  </div> -->
+
+  <!-- No Imgs -->
+  <div *ngIf="!images.length" class="text-center noImgDiv my-4" [ngClass]="isHomePage ? 'homePgNoImgDivStyling' : ''">
+    <div class="mt-4 mb-2" [ngClass]="isHomePage ? 'homePgNoImgIconStyling' : ''"><i class="fa-solid fa-kitchen-set fa-2xl"></i></div>
+    <div class="pt-3 blackFont">No hay imágenes para esta receta.</div>
+    <div>
+      <button *ngIf="!isHomePage" class="btn btn-green" (click)="open(content, 'create')">compartir fotos</button>
+      <button *ngIf="isHomePage" class="btn btn-green">abrir receta para compartir fotos</button>
+    </div>
+  </div>
+</div>
+
+<!-- Upload Img Modal -->
+<ng-template #content let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title" style="text-transform: capitalize;">Fotos para {{recipe_name.toLocaleLowerCase()}}</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="clearImgData();modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+    <div class="row text-center mx-5" id="standardImgOptionsModalBody">
+      <div *ngIf="showSpinner" class="d-flex justify-content-center my-5 row">
+        <div class="spinner-border col-12" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
+        <br>
+        <div class="col-12 mt-2">subiendo cambios, no te vayas de esta pagina</div>
+      </div>
+      <form *ngIf="!showSpinner" id="modalForm">
+        <div style="width: 100%;white-space: nowrap;overflow-x: scroll;">
+          <div *ngFor="let img of editableImgs;index as i" style="display: inline-flex;position: relative;margin-right: 2em;">
+            <img src="{{img.url}}" alt="" style="height: 15em;width: auto;">
+            <div style="position: absolute;top: 0px;width: 100%;text-align: right;">
+              <ng-container *ngIf="img._id">
+                <button class="btn-red" matTooltip="borrar foto" [matTooltipPosition]="'above'" (click)="imgDeleteMenuDisplay(true,img._id)"><i class="fa-solid fa-trash-can"></i></button>
+                <div id="{{'imgDeleteDiv-' + img._id}}" style="display: none;background-color: rgba(0,0,0,.41);text-align: center;color: white;margin-top: 3em;padding: 1em;">
+                  <div style="padding-bottom: .55em;">borrar esta foto?</div>
+                  <div style="display: inline-flex;margin-right: .5em;">
+                    <button class="btn-green" *ngIf="img._id" (click)="hideImg(i, false, img.filename, $event);">si</button>
+                  </div>
+                  <div style="display: inline-flex;margin-left: .5em;">
+                    <button class="btn-red" (click)="imgDeleteMenuDisplay(false, img._id)">no</button>
+                  </div>
+                </div>
+              </ng-container>
+
+              <ng-container *ngIf="!img._id">
+                <button class="btn-red" matTooltip="borrar foto" [matTooltipPosition]="'above'" (click)="imgDeleteMenuDisplay(true,img.filename)"><i class="fa-solid fa-trash-can"></i></button>
+                <div id="{{'imgDeleteDiv-' + img.filename}}" style="display: none;background-color: rgba(0,0,0,.41);text-align: center;color: white;margin-top: 3em;padding: 1em;">
+                  <div style="padding-bottom: .55em;">borrar esta foto?</div>
+                  <div  style="display: inline-flex;margin-right: .5em;">
+                    <button class="btn-green" (click)="hideImg(i, true, img.filename, $event);">si</button>
+                  </div>
+                  <div  style="display: inline-flex;margin-left: .5em;">
+                    <button class="btn-red" (click)="imgDeleteMenuDisplay(false, img._id)">no</button>
+                  </div>
+                </div>
+              </ng-container>
+
+            </div>
+            <div style="position: absolute;bottom: 0px;width: 100%;left: .75em;text-align: center;margin-bottom: .5em;">
+              <button *ngIf="i != 0" class="btn-green" matTooltip="mover atrás" [matTooltipPosition]="'above'"  (click)="changeImgOrder(i, 'menos', editableImgs)"> <i class="fa-solid fa-arrow-left"></i> </button>
+              <div class="text-center mx-1" style="background-color: rgba(0,0,0,.41);color: white;display: inline-flex;padding: .1em;">{{i+1}} / {{editableImgs.length}}</div>
+              <button *ngIf="(i+1) < editableImgs.length" class="btn-green" matTooltip="mover adelante" [matTooltipPosition]="'above'"  (click)="changeImgOrder(i, 'mas', editableImgs)"> <i class="fa-solid fa-arrow-right"></i> </button>
+            </div>
+          </div>
+        </div>
+        <div class="my-4">
+          <input class="form-control" type="file" name="form-imgs" id="form-file" multiple accept="image/*" (change)="checkFiles($event)">
+        </div>
+        <div class="mb-4">
+          <textarea *ngIf="createType === 'create'" name="description" class="comentariosTxtArea" placeholder="descripción" id="description" style="width: 100%;"></textarea>
+          <textarea *ngIf="createType === 'edit'" name="description" class="comentariosTxtArea" placeholder="descripción"  id="description" value="{{images[editImgIndex].description}}" style="width: 100%;"></textarea>
+        </div>
+      </form>
+    </div>
+    <div id="deleteImgModalBody" style="display: none;">
+      <div>Estas seguro que queres borrar tu post?</div>
+      <div>
+        <button type="button" class="btn btn-green ml-3" (click)="deleteImgPost();">Si</button>
+        <button type="button" class="btn btn-red ml-3" (click)="clearImgData();modal.close('Save click')">Cancelar</button>
+      </div>
+    </div>
+	</div>
+	<div class="modal-footer">
+    <ng-container *ngIf="createType === 'create' && !showSpinner">
+  		<button type="button" class="btn btn-red" (click)="clearImgData();modal.close('Save click')">Cancelar</button>
+      <button *ngIf="createType === 'create'" type="button" class="btn btn-green" (click)="uploadImg('create');">Subir</button>
+    </ng-container>
+    <ng-container *ngIf="createType === 'edit' && !showSpinner">
+      <button type="button" class="btn btn-red" (click)="showDeleteImgModalBody();">Borrar Post</button>
+      <button type="button" class="btn btn-green" (click)="uploadImg('edit');">Editar</button>
+    </ng-container>
+		<!-- <button type="button" class="btn btn-red" (click)="clearImgData();modal.close('Save click')">Cancelar</button>
+		<button type="button" class="btn btn-red" (click)="clearImgData();modal.close('Save click')">Borrar Post</button>
+		<button *ngIf="createType === 'create'" type="button" class="btn btn-green" (click)="uploadImg('create');">Subir</button>
+		<button *ngIf="createType === 'edit'" type="button" class="btn btn-green" (click)="uploadImg('edit');">Editar</button> -->
+	</div>
+</ng-template>

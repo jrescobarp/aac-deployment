@@ -1,0 +1,69 @@
+.mainContainer{
+  margin-top: 1em;
+  min-height: 91%;
+  max-height: 100px;
+  overflow-y: scroll;
+}
+
+.notLoggedInDiv{
+  padding-top: 7%;
+}
+
+.loggedInDiv{
+  padding-top: 7%;
+}
+
+.userMenuLoggedInBtn{
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.btn{
+  width: 100%;
+}
+
+.loggedInTitle{
+  text-transform: capitalize;
+}
+
+.modal-btn{
+  width: 50%;
+}
+
+.noPaddingTop{
+  padding-top: 0%;
+}
+
+.chefIcon{
+  width: 4em;
+  border: 1px solid rgba(206,60,81,1);
+  border-radius: 50%;
+  padding: .5em;
+}
+
+.minHeight{
+  min-height: 12em;
+}
+
+.userIcon{
+  text-align: center;
+}
+
+.categoryBtnTxt{
+  text-transform: capitalize;
+}
+
+.categoryBtnOptionTxt{
+  // background-color: white;
+  border-style: none;
+  text-decoration: none;
+  color: black;
+  text-transform: capitalize;
+}
+
+.categoryBtnOptionTxt:hover{
+  text-decoration: underline;
+  text-decoration-color: #5d8102;
+  border-right:none;
+  cursor: pointer;
+}

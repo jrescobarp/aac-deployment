@@ -1,0 +1,124 @@
+<div class="mainContainer" [ngClass]="dropdownDisplay ? 'noPaddingTop minHeight' : 'border-red-1px'" style="background-color: white;">
+  <div class="notLoggedInDiv" *ngIf="!loggedIn" [ngClass]="dropdownDisplay ? 'noPaddingTop' : ''">
+    <div *ngIf="!dropdownDisplay" class="userIcon">
+      <img class="chefIcon" src="../../../assets//redChef.png" alt="">
+    </div>
+    <app-login class="login"
+      [loginType]="'none'"
+      (logInChangeStatus)="updateloginStatus($event)">
+    </app-login>
+  </div>
+
+  <div *ngIf="loggedIn" class="loggedInDiv text-center">
+    <!-- <div class="loggedInTitle">Chef {{userInfo.username + (userInfo.username.slice(-1) === "s" ? "'" : "'s")}} </div> -->
+    <div *ngIf="!dropdownDisplay" class="userIcon mb-4">
+      <img class="chefIcon" src="../../../assets//redChef.png" alt="">
+    </div>
+    <div class="loggedInTitle" style="color:rgba(206,60,81,1)">Chef {{userInfo.username}}</div>
+    <div class="userMenuLoggedInBtn" [ngClass]="dropdownDisplay ? 'mt-2' : 'mt-4'"><button class="btn btn-green" (click)="openModal(activity)">actividad</button></div>
+    <!-- <div class="userMenuLoggedInBtn"><button class="btn btn-green" (click)="openModal(settings)">settings</button></div> -->
+    <div class="userMenuLoggedInBtn"><button class="btn btn-red" (click)="logout()">logout</button></div>
+  </div>
+</div>
+
+
+
+<!-- user Activity Modal -->
+<ng-template #activity let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title" style="text-transform: capitalize;">Actividad de chef {{userInfo.first_name}}</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+    <div ngbAccordion>
+      <div class="accordionItem" ngbAccordionItem>
+        <h2 ngbAccordionHeader>
+          <button class="categoryBtnTxt" ngbAccordionButton>recetas vistas</button>
+        </h2>
+        <div ngbAccordionCollapse>
+          <div ngbAccordionBody>
+            <ng-template>
+              <div class="row">
+                <div class="categoryBtnOptionDiv text-center my-3" *ngFor="let option of recipe_history" [ngClass]="isMobile ? 'col-12' : 'col-4'">
+                  <a class="p-3 categoryBtnOptionTxt" (click)="recipeRedirect(option)">{{ option.name.toLowerCase() }}</a>
+                </div>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordionItem" ngbAccordionItem>
+        <h2 ngbAccordionHeader>
+          <button class="categoryBtnTxt" ngbAccordionButton>likes</button>
+        </h2>
+        <div ngbAccordionCollapse>
+          <div ngbAccordionBody>
+            <ng-template>
+              <div class="row">
+                <div class="categoryBtnOptionDiv text-center my-3" *ngFor="let option of userInfo.recipes" [ngClass]="isMobile ? 'col-12' : 'col-4'">
+                  <a class="p-3 categoryBtnOptionTxt" (click)="recipeRedirect(option)">{{ option.name.toLowerCase() }}</a>
+                </div>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="accordionItem" ngbAccordionItem>
+        <h2 ngbAccordionHeader>
+          <button class="categoryBtnTxt" ngbAccordionButton>mis imágenes</button>
+        </h2>
+        <div ngbAccordionCollapse>
+          <div ngbAccordionBody>
+            <ng-template>
+              <div class="row">
+                <div class="categoryBtnOptionDiv text-center my-3">
+                  <a class="p-3 categoryBtnOptionTxt" routerLink="/">imagen</a>
+                </div>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+
+      <div class="accordionItem" ngbAccordionItem>
+        <h2 ngbAccordionHeader>
+          <button class="categoryBtnTxt" ngbAccordionButton>mis comentarios</button>
+        </h2>
+        <div ngbAccordionCollapse>
+          <div ngbAccordionBody>
+            <ng-template>
+              <div class="row">
+                <div class="categoryBtnOptionDiv text-center my-3">
+                  <a class="p-3 categoryBtnOptionTxt" routerLink="/">comentario</a>
+                </div>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div> -->
+
+    </div>
+	</div>
+	<div class="modal-footer">
+    <!-- <button type="button" class="btn btn-red" (click)="modal.close('Save click')">cerrar</button> -->
+    <!-- <button type="button" class="btn btn-green" (click)="uploadImg('create');">Subir</button> -->
+	</div>
+</ng-template>
+
+
+<!-- user settings Modal -->
+<ng-template #settings let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title" style="text-transform: capitalize;">Perfil de chef {{userInfo.first_name}}</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body text-center">
+    <button class="btn btn-green modal-btn">cambiar password</button>
+	</div>
+	<div class="modal-footer">
+    <!-- <button type="button" class="btn btn-red" (click)="modal.close('Save click')">cerrar</button> -->
+    <!-- <button type="button" class="btn btn-green" (click)="uploadImg('create');">Subir</button> -->
+	</div>
+</ng-template>

@@ -1,0 +1,29 @@
+<app-navbar
+></app-navbar>
+
+<div class="mainContainer container" style="position: relative;">
+  <div class="row">
+    <div [ngClass]="isMobile ? 'col-12' : 'col-8'">
+      <app-featured-meal
+      [isMobile]="isMobile"
+      [featuredRecipeArr]="recipes$"
+      [isHomePage]="true"
+      [defaultFeaturedMealArr]="defaultFeaturedMealArr"
+      ></app-featured-meal>
+    </div>
+    <div class="loginDiv" [ngClass]="isMobile ? 'hide' : 'col-4'">
+      <app-user-menu
+      [isMobile]="isMobile"
+      [dropdownDisplay]="false"
+      ></app-user-menu>
+    </div>
+    <div class="col-12">
+      <app-recipe-list
+        [isMobile]="isMobile"
+        [recipes]="recipes$"
+      ></app-recipe-list>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>
