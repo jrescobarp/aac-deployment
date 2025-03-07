@@ -21,7 +21,7 @@ export class NavbarComponent implements OnInit {
 
   hover(imgName:string) {
     var el = document.getElementById("navUserIcon");
-    el!.setAttribute('src', '/assets/'+imgName);
+    el!.setAttribute('src', 'assets/'+imgName);
   }
 
   userChange($event:any){
