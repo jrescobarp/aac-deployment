@@ -62,7 +62,10 @@ if (!ATLAS_URI) {
 }
 mongoose.connect(ATLAS_URI);
 const app = (0, express_1.default)();
-app.use(cors());
+app.use(cors({
+    origin: 'https://jrescobarp.github.io/aprendamos-a-cocinar-staging/', // Replace with your frontend's domain
+    credentials: true, // Allow cookies to be sent
+}));
 const sessionConfig = {
     store: MongoStore.create({ mongoUrl: ATLAS_URI }),
     name: 'aacSession',
@@ -70,7 +73,8 @@ const sessionConfig = {
     resave: false,
     saveUninitialized: true,
     cookie: {
-        httpOnly: true,
+        secure: true,
+        sameSite: "none",
         expires: Date.now() + 1000 * 60 * 60 * 24 * 5,
         maxAge: 1000 * 60 * 60 * 24 * 5
     }

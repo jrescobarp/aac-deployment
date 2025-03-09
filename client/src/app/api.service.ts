@@ -44,7 +44,7 @@ export class ApiService {
   async isLoggedIn(): Promise<void> {
     try {
       const userResponse = await lastValueFrom(
-        this.httpClient.get(`${this.url}/user`).pipe(
+        this.httpClient.get(`${this.url}/user`,{withCredentials: true}).pipe(
           catchError((error) => {
             console.error('Error loading user:', error);
             return of(null); // Return `null` on error to allow the app to continue
@@ -81,7 +81,7 @@ export class ApiService {
 
   login(user:User): Observable<any>{
     // return this.httpClient.post(`${this.url}/user/login`, user, {responseType: 'text'});
-    return this.httpClient.post(`${this.url}/user/login`, user, { responseType: 'text' }).pipe(
+    return this.httpClient.post(`${this.url}/user/login`, user, { responseType: 'text',withCredentials:true }).pipe(
       catchError((error) => {
         console.error('Login error', error);
         return of(null); // Return null if login fails
@@ -90,7 +90,7 @@ export class ApiService {
   }
 
   logout():Observable<any>{
-    return this.httpClient.get(`${this.url}/user/logout`);
+    return this.httpClient.get(`${this.url}/user/logout`, { withCredentials: true });
   }
 
   // Set user data after login
