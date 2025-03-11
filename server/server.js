@@ -72,7 +72,7 @@ app.use(cors({
 app.options('*', (req, res) => {
     res.header("Access-Control-Allow-Origin", 'https://jrescobarp.github.io');
     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization","Set-Cookie");
     res.header("Access-Control-Allow-Credentials", "true");
     res.sendStatus(200); // Respond OK for preflight
 });
@@ -86,6 +86,7 @@ const sessionConfig = {
     cookie: {
         secure: true,
         sameSite: "none",
+        httpOnly: true, // Prevent client-side JavaScript access
         expires: Date.now() + 1000 * 60 * 60 * 24 * 5,
         maxAge: 1000 * 60 * 60 * 24 * 5
     }

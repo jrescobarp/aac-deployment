@@ -76,7 +76,7 @@ export class ApiService {
   }
 
   registerUser(user:User): Observable<any>{
-    return this.httpClient.post(`${this.url}/user/register`, user, {responseType: 'text'});
+    return this.httpClient.post(`${this.url}/user/register`, user, {responseType: 'text',withCredentials:true});
   }
 
   login(user:User): Observable<any>{
@@ -99,7 +99,7 @@ export class ApiService {
   }
 
   updateUser(id: string, user: User): Observable<any> {
-    return this.httpClient.put(`${this.url}/user/${id}`, user, { responseType: 'text' });
+    return this.httpClient.put(`${this.url}/user/${id}`, user, { responseType: 'text' ,withCredentials:true});
   }
 
   //Comment Handllers
