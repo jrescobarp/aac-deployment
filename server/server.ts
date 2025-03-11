@@ -29,6 +29,9 @@ if (!ATLAS_URI) {
 
 mongoose.connect(ATLAS_URI);
 const app = express();
+
+app.set('trust proxy', 1); // Trust the first proxy
+
 app.use(cors({
     origin: 'https://jrescobarp.github.io', // Replace with your frontend's domain
     credentials: true, // Allow cookies to be sent
