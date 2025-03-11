@@ -62,10 +62,21 @@ if (!ATLAS_URI) {
 }
 mongoose.connect(ATLAS_URI);
 const app = (0, express_1.default)();
+
 app.use(cors({
-    origin: 'https://jrescobarp.github.io/aprendamos-a-cocinar-staging/', // Replace with your frontend's domain
+    origin: 'https://jrescobarp.github.io', // Replace with your frontend's domain
     credentials: true, // Allow cookies to be sent
 }));
+
+// Handle CORS preflight requests
+app.options('*', (req, res) => {
+    res.header("Access-Control-Allow-Origin", 'https://jrescobarp.github.io');
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    res.header("Access-Control-Allow-Credentials", "true");
+    res.sendStatus(200); // Respond OK for preflight
+});
+
 const sessionConfig = {
     store: MongoStore.create({ mongoUrl: ATLAS_URI }),
     name: 'aacSession',

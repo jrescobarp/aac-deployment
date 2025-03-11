@@ -29,7 +29,19 @@ if (!ATLAS_URI) {
 
 mongoose.connect(ATLAS_URI);
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: 'https://jrescobarp.github.io', // Replace with your frontend's domain
+    credentials: true, // Allow cookies to be sent
+}));
+
+// Handle CORS preflight requests
+app.options('*', (req, res) => {
+    res.header("Access-Control-Allow-Origin", 'https://jrescobarp.github.io');
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    res.header("Access-Control-Allow-Credentials", "true");
+    res.sendStatus(200); // Respond OK for preflight
+});
 
 const sessionConfig = {
     store: MongoStore.create({ mongoUrl: ATLAS_URI }),
