@@ -23,8 +23,21 @@ export class HomeComponent implements OnInit {
 
   async ngOnInit() {
 
-    const recipes = await this.apiService.getRecipes();
-    this.recipes$ = recipes;
+    // const recipes = await this.apiService.getRecipes();
+    // this.recipes$ = recipes;
+
+    let localRecipes = JSON.parse(localStorage.getItem("recipes") || "[]");
+    let lastRecipeUpdate = Number(localStorage.getItem("lastRecipeUpdate"));
+
+    if(lastRecipeUpdate && localRecipes?.length && (Date.now() > Number(lastRecipeUpdate + 3600000))){
+      this.recipes$ = localRecipes;
+    }else{
+      const recipes = await this.apiService.getRecipes();
+      this.recipes$ = recipes;
+
+      localStorage.setItem("recipes", JSON.stringify(this.recipes$));
+      localStorage.setItem("lastRecipeUpdate", Date.now().toString());
+    }
 
     if(!localStorage.getItem("appsArr") || !localStorage.getItem("entreeArr") || !localStorage.getItem("dessertArr")){
       this.createLocalStorageArrays();
