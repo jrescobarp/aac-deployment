@@ -43,25 +43,17 @@
           <button class="btn btn-sm btn-green" matTooltip="copiar texto" [matTooltipPosition]="'above'" (click)="copyToClipboard('ingredients')"><i class="fa-regular fa-clipboard"></i></button>
         </div>
       </div>
-      <ul id="ingredientList">
-        <!-- <li *ngFor="let ingredient of recipe.value.ingredients ; let i = index" style="font-size: .8em;">
-          {{ingredient}}
-        </li> -->
-      </ul>
+      <ul id="ingredientList"></ul>
     </div>
 
-    <div class="stepsDiv bg-white border-red-1px" [ngClass]="isMobile ? 'col-12 mt-3' : 'col'" style="margin-left: 2em;">
+    <div class="stepsDiv bg-white border-red-1px" [ngClass]="isMobile ? 'col-12 mt-3' : 'col'" [ngStyle]="{'margin-left': (isMobile ? '' : '2em')}">
       <div class="row mt-2">
         <div class="col-8" style="font-size: 1em;color:rgba(206,60,81,1);"><strong>Instrucciones:</strong></div>
         <div class="col-4" style="text-align: right;">
           <button class="btn btn-sm mt-0 btn-green" matTooltip="copiar texto" [matTooltipPosition]="'above'" (click)="copyToClipboard('steps')"><i class="fa-regular fa-clipboard"></i></button>
         </div>
       </div>
-      <ol id="stepsList">
-        <!-- <li *ngFor="let step of recipe.value.steps ; let i = index" style="font-size: .8em;">
-          {{step}}
-        </li> -->
-      </ol>
+      <ol id="stepsList"></ol>
     </div>
 
     <div class="col-12 my-3 px-0">
